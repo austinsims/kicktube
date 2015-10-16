@@ -1,0 +1,28 @@
+<h1>{{title}}</h1>
+
+<table class="event-listings">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Artists</th>
+      <th>Venue</th>
+      <th>Link</th>
+      <th>Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each events}}
+      <tr>
+        <td>{{this.start.datetime}}</td>
+        <td>{{this.displayName}}</td>
+        <td>{{this.venue.displayName}}</td>
+        <td><a href="{{this.uri}}">GO!</a></td>
+        <td>
+          {{#if this.videoUrl}}
+            <iframe src="{{this.videoUrl}}"></iframe>
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -26,18 +26,30 @@ function tr(event) {
 }
 
 function pagination(data) {
-  function pageUrl(pageNumber) {
+  function pageLink(pageNumber, innerText) {
     const href = '/?pageNumber=' + pageNumber;
-    return `<a href=${href}>${pageNumber}</a>`;
+    return `<a href=${href}>${innerText}</a>`;
   }
-  console.log('currentPage: ' + data.currentPage);
-  return _.range(1, data.totalPages)
-    .map(function(pageNumber) {
-      return pageNumber == data.currentPage ?
-        String(pageNumber) :
-        pageUrl(pageNumber);
-    })
-    .join('&nbsp;');
+  
+  function numbers() {
+    return _.range(1, data.totalPages)
+      .map(function(pageNumber) {
+        return pageNumber == data.currentPage ?
+          String(pageNumber) :
+          pageLink(pageNumber, pageNumber);
+      })
+      .join('&nbsp;');
+  }
+
+  return [
+      data.currentPage > 1 ?
+        pageLink(data.currentPage - 1, '<') :
+        '',
+      numbers(),
+      data.currentPage != data.totalPages - 1 ?
+        pageLink(data.currentPage + 1, '>') :
+        '',
+    ].join('&nbsp;&nbsp;&nbsp;');
 }
 
 module.exports = function(data) {

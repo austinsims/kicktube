@@ -40,8 +40,11 @@ function withYoutubeVideos(displayEvents) {
   function withYoutubeVideo(displayEvent) {
     return new Promise(function(resolve, reject) {
       youtube.search(displayEvent.performance[0].artist.displayName)
-        .then(function(videoUrl) {
-          displayEvent.videoUrl = videoUrl;
+        .then(function(result) {
+          if (result) {
+            displayEvent.videoThumbnail = result.videoThumbnail;
+            displayEvent.videoUrl = result.videoUrl;
+          }
           resolve(displayEvent);
         })
         .catch(reject);
@@ -51,13 +54,21 @@ function withYoutubeVideos(displayEvents) {
 }
 
 router.get('/', function(req, res) {
-  songkick.getEvents()
+  let pageNumber = req.query.pageNumber ? parseInt(req.query.pageNumber) : 1;
+  var totalPages;
+  songkick.getEvents(pageNumber)
+    .then(function(songkickResponse) {
+      totalPages = songkickResponse.totalPages;
+      return Promise.resolve(songkickResponse.events);
+    })
     .then(toDisplayEvents)
     .then(withYoutubeVideos)
     .then(function(events) {
       res.render('index', {
         title: 'Muzikz',
-        events: events,
+        events,
+        pageNumber,
+        totalPages,
       });
     })
     .catch(function(reason) {

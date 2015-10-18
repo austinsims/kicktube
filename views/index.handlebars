@@ -3,7 +3,7 @@
 <p>
   Event data from
   <a href="http://www.songkick.com">
-    <img src="img/sk_logo.png" alt="Songkick.com"></img>
+    <img src="img/sm_logo.png" alt="Songkick.com"></img>
   </a>
 </p>
 
@@ -26,10 +26,17 @@
         <td><a href="{{this.uri}}">GO!</a></td>
         <td>
           {{#if this.videoUrl}}
-            <iframe src="{{this.videoUrl}}"></iframe>
+            <img src="{{this.videoThumbnail}}"
+                 class="thumbnail"
+                 onclick="loadVideo(this)"
+                 data-video-url="{{this.videoUrl}}">
+            </img>
           {{/if}}
         </td>
       </tr>
     {{/each}}
   </tbody>
 </table>
+
+<p> You are on page {{pageNumber}} </p>
+<p> There are {{totalPages}} pages</p>

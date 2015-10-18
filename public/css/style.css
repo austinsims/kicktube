@@ -18,3 +18,7 @@ th {
 body {
     font-family: sans-serif;
 }
+
+.thumbnail {
+    cursor: pointer;
+}

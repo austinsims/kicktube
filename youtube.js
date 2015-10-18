@@ -6,7 +6,7 @@ let apiKeys = require('./api_keys.json');
 let youtube = google.youtube('v3');
 
 function videoIdToUrl(id) {
-  return `http://www.youtube.com/v/${id}&autoplay=0`;
+  return `http://www.youtube.com/v/${id}&autoplay=1`;
 }
 
 module.exports = {
@@ -20,7 +20,13 @@ module.exports = {
         if (err) reject(err);
         else if (!res.items.length) resolve(undefined); // no video found
         else if (!res.items[0].id.videoId) resolve(undefined) // ???
-        else resolve(videoIdToUrl(res.items[0].id.videoId));
+        else {
+          //console.log(JSON.stringify(res.items[0], null, 2));
+          resolve({
+            videoUrl: videoIdToUrl(res.items[0].id.videoId),
+            videoThumbnail: res.items[0].snippet.thumbnails.default.url
+          });
+        }
       });
     });
   }

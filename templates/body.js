@@ -54,7 +54,8 @@ function pagination(data) {
 
 module.exports = function(data) {
   return `
-    <h1>${data.title}</h1>
+    <h1>Kicktube</h1>
+    <h3>A mashup of Songkick and Youtube</h3>
     
     <p>
       Event data from

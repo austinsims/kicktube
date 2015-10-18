@@ -13,7 +13,7 @@ const html = function(data) {
     <!doctype html>
     <html>
       <head>
-        <title>${data.title}</title>
+        <title>Kicktube</title>
         <link rel="stylesheet" href="/css/style.css">
       </head>
       <body>

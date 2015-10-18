@@ -61,17 +61,8 @@ router.get('/', function(req, res) {
     .then(toDisplayEvents)
     .then(withYoutubeVideos)
     .then(function(events) {
-      /*
-      res.render('index', {
-        title: 'Muzikz',
-        events,
-        pageNumber,
-        totalPages,
-      });
-      */
       res.send(
         template.render({
-          title: 'Muzikz',
           events,
           currentPage: pageNumber,
           totalPages,

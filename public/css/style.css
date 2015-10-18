@@ -22,3 +22,9 @@ body {
 .thumbnail {
     cursor: pointer;
 }
+
+.pagination {
+    display: block;
+    width: 100%;
+    text-align: center;
+}

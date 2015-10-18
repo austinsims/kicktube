@@ -5,6 +5,7 @@ let youtube = require('../youtube');
 let songkick = require('../songkick');
 let moment = require('moment');
 let _ = require('underscore');
+let template = require('../templates/html.js');
 let router = express.Router();
 
 /**
@@ -64,12 +65,22 @@ router.get('/', function(req, res) {
     .then(toDisplayEvents)
     .then(withYoutubeVideos)
     .then(function(events) {
+      /*
       res.render('index', {
         title: 'Muzikz',
         events,
         pageNumber,
         totalPages,
       });
+      */
+      res.send(
+        template.render({
+          title: 'Muzikz',
+          events,
+          currentPage: pageNumber,
+          totalPages,
+        })
+      );
     })
     .catch(function(reason) {
       console.error(reason + reason.stack);

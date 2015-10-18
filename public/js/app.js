@@ -25,6 +25,7 @@ function loadVideo(imgEl) {
   var containerEl = imgEl.parentElement;
   var iframeEl = document.createElement('iframe');
   iframeEl.src = videoUrl;
+  iframeEl.frameBorder = '0';
   hide(imgEl);
   containerEl.appendChild(iframeEl);
 

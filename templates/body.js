@@ -16,7 +16,7 @@ function tr(event) {
   }
   return `
     <tr>
-      <td>${event.start.datetime}</td>
+      <td>${event.date}</td>
       <td>${event.displayName}</td>
       <td>${event.venue.displayName}</td>
       <td><a href="${event.uri}">GO!</a></td>

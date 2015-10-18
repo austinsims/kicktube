@@ -11,12 +11,11 @@ let router = express.Router();
 /**
  * Filter down a Songkick API event to the bare minimum we need to send to the template,
  * with nicely formatted values
+ * TODO: move all this crap to songkick.js
  */
-
 function toDisplayEvents(apiEvents) {
   function toDisplayEvent(apiEvent) {
     let WHITELISTED_KEYS = [
-      'start',
       'displayName',
       'venue',
       'uri',
@@ -26,12 +25,9 @@ function toDisplayEvents(apiEvents) {
 
     var displayEvent = _.pick(apiEvent, ...WHITELISTED_KEYS);
 
-    // Format date
-    // TODO remove mutation! PURE CODE!
-    displayEvent.start.datetime =
-      moment(displayEvent.start.datetime).format('dddd, MMMM Do YYYY');
-
-    return displayEvent;
+    return _.extend(displayEvent, {
+      date: moment(apiEvent.start.date, 'YYYY-MM-DD').format('dddd, MMMM Do')
+    });
   }
 
   return apiEvents.map(toDisplayEvent);

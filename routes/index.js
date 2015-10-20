@@ -59,7 +59,7 @@ router.get('/', function(req, res) {
 router.get('/events', function(req, res) {
   let pageNumber = req.query.pageNumber ? parseInt(req.query.pageNumber) : 1;
   var totalPages;
-  songkick.getEvents(pageNumber)
+  songkick.getEvents({pageNumber, lat: req.query.lat, lon: req.query.lon})
     .then(function(songkickResponse) {
       totalPages = songkickResponse.totalPages;
       return Promise.resolve(songkickResponse.events);

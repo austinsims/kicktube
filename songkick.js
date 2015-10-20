@@ -20,7 +20,12 @@ let CALENDAR_URL = `http://api.songkick.com/api/3.0/metro_areas/${METRO_AREA_ID}
 /**
  * Get events and pagination info
  */
-songkick.getEvents = function(pageNumber) {
+songkick.getEvents = function(options) {
+  let pageNumber = options.pageNumber;
+  let lat = options.lat;
+  let lon = options.lon;
+  console.log(lat, lon);
+  
   return new Promise(function(resolve, reject) {
     let requestUrl = CALENDAR_URL + `&page=${pageNumber}`;
     request(requestUrl, function (error, response, body) {

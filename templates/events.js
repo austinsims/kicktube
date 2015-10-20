@@ -58,8 +58,14 @@ function pagination(data) {
     ].join('&nbsp;&nbsp;&nbsp;');
 }
 
-module.exports = function(data) {
+function table(data) {
   return `
+
+  `;
+}
+
+module.exports = function(data) {
+  return [`
     <h1>Kicktube</h1>
     <h3>A mashup of Songkick and Youtube</h3>
     
@@ -68,9 +74,9 @@ module.exports = function(data) {
       <a href="http://www.songkick.com">
         <img src="img/sm_logo.png" alt="Songkick.com"></img>
       </a>
-    </p>
+    </p>`,
 
-    <p class="pagination">${ pagination(data) }</p>
+    data.events.length ? `<p class="pagination">${ pagination(data) }</p>
 
     <table class="event-listings">
       <thead>
@@ -89,5 +95,5 @@ module.exports = function(data) {
 
     <p class="pagination">${ pagination(data) }</p>
     <script src='js/events.js'></script>
-  `;
+  ` : '<p>No events found.</p>'].join('');
 };

@@ -27,7 +27,13 @@ function tr(event) {
 
 function pagination(data) {
   function pageLink(pageNumber, innerText) {
-    const href = '/?pageNumber=' + pageNumber;
+    function setParamValue(key, value) {
+      return '/events?' +
+        _.pairs(_.extend(data.query, _.object([[key, value]])))
+        .map(kv => kv.join('='))
+        .join('&');
+    }
+    const href = setParamValue('pageNumber', pageNumber);
     return `<a href=${href}>${innerText}</a>`;
   }
   
@@ -82,5 +88,6 @@ module.exports = function(data) {
     </table>
 
     <p class="pagination">${ pagination(data) }</p>
+    <script src='js/events.js'></script>
   `;
 };

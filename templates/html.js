@@ -1,14 +1,13 @@
 'use strict';
 
 const _ = require('underscore');
-const body = require('./body');
+const events = require('./events');
 
-const scripts = [
+const libs = [
   'components/underscore/underscore.js',
-  'js/app.js',
 ];
 
-const html = function(data) {
+const html = function(data, innerTemplate) {
   return `
     <!doctype html>
     <html>
@@ -17,13 +16,11 @@ const html = function(data) {
         <link rel="stylesheet" href="/css/style.css">
       </head>
       <body>
-        ${ body(data) }
-        ${ scripts.map(src => '<script src=' + src + '></script>').join('\n') }
+        ${ innerTemplate(data) }
+        ${ libs.map(src => '<script src=' + src + '></script>').join('\n') }
       </body>
     </html>
   `;
 };
 
-module.exports = {
-  render: html
-};
+module.exports = html;

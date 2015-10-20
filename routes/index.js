@@ -5,7 +5,9 @@ let youtube = require('../youtube');
 let songkick = require('../songkick');
 let moment = require('moment');
 let _ = require('underscore');
-let template = require('../templates/html.js');
+let mainTemplate = require('../templates/html.js');
+let geolocationTemplate = require('../templates/geolocation.js');
+let eventsTemplate = require('../templates/events.js');
 let router = express.Router();
 
 /**
@@ -51,6 +53,10 @@ function withYoutubeVideos(displayEvents) {
 }
 
 router.get('/', function(req, res) {
+  res.send(mainTemplate({}, geolocationTemplate));
+});
+
+router.get('/events', function(req, res) {
   let pageNumber = req.query.pageNumber ? parseInt(req.query.pageNumber) : 1;
   var totalPages;
   songkick.getEvents(pageNumber)
@@ -62,11 +68,12 @@ router.get('/', function(req, res) {
     .then(withYoutubeVideos)
     .then(function(events) {
       res.send(
-        template.render({
+        mainTemplate({
           events,
           currentPage: pageNumber,
           totalPages,
-        })
+          query: req.query,
+        }, eventsTemplate)
       );
     })
     .catch(function(reason) {

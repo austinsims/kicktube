@@ -4,12 +4,12 @@ const _ = require('underscore');
 
 function tr(event) {
   function videoCell() {
-    return event.videoUrl ?
+    return event.videoId ?
       `
         <img src="${event.videoThumbnail}"
              class="thumbnail"
              onclick="loadVideo(this)"
-             data-video-url="${event.videoUrl}">
+             data-video-id="${event.videoId}">
         </img>
       ` :
       'No video found';

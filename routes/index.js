@@ -46,7 +46,7 @@ function withYoutubeVideos(displayEvents) {
         .then(function(result) {
           if (result) {
             displayEvent.videoThumbnail = result.videoThumbnail;
-            displayEvent.videoUrl = result.videoUrl;
+            displayEvent.videoId = result.videoId;
           }
           resolve(displayEvent);
         })

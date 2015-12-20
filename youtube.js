@@ -5,10 +5,6 @@ let apiKeys = require('./api_keys.json');
 
 let youtube = google.youtube('v3');
 
-function videoIdToUrl(id) {
-  return `http://www.youtube.com/v/${id}&autoplay=1`;
-}
-
 module.exports = {
   /**
    * Search for a given query string and return an iframe src for an embedded
@@ -23,7 +19,7 @@ module.exports = {
         else {
           //console.log(JSON.stringify(res.items[0], null, 2));
           resolve({
-            videoUrl: videoIdToUrl(res.items[0].id.videoId),
+            videoId: res.items[0].id.videoId,
             videoThumbnail: res.items[0].snippet.thumbnails.default.url
           });
         }

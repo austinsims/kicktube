@@ -33,13 +33,24 @@ function findNextImgEl(containerEl) {
   }
 }
 
+function playNextVideo() {
+  var containerEl = document.querySelector('#player').parentElement;
+  var nextImgEl = findNextImgEl(containerEl);
+  if (!nextImgEl) return;
+  unloadVideo(containerEl);
+  loadVideo(nextImgEl);
+}
+
+// Play next video on right arrow key press
+document.addEventListener('keydown', function(evt) {
+  var key = evt.keyCode || evt.which;
+  if (key !== 39) return;
+  playNextVideo();
+});
+
 function onPlayerStateChange(evt) {
   if (evt.data == YT.PlayerState.ENDED) {
-    var containerEl = document.querySelector('#player').parentElement;
-    var nextImgEl = findNextImgEl(containerEl);
-    if (!nextImgEl) return;
-    unloadVideo(containerEl);
-    loadVideo(nextImgEl);
+    playNextVideo();
   }
 }
 

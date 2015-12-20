@@ -21,8 +21,26 @@ function onPlayerReady(evt) {
   evt.target.playVideo();
 }
 
+function findNextImgEl(containerEl) {
+  var nextTr = containerEl.parentElement.nextElementSibling;
+  if (!nextTr) return;
+  var nextImgEl = nextTr.querySelector('img');
+  if (nextImgEl) {
+    return nextImgEl;
+  } else {
+    containerEl = nextTr.querySelector('td');
+    return findNextImgEl(containerEl);
+  }
+}
+
 function onPlayerStateChange(evt) {
-  console.log('player state change');
+  if (evt.data == YT.PlayerState.ENDED) {
+    var containerEl = document.querySelector('#player').parentElement;
+    var nextImgEl = findNextImgEl(containerEl);
+    if (!nextImgEl) return;
+    unloadVideo(containerEl);
+    loadVideo(nextImgEl);
+  }
 }
 
 function hide(el) {
@@ -43,21 +61,10 @@ function unloadVideo(containerEl) {
 
 function loadVideo(imgEl) {
   ytPromise.then(function(YouTube) {
-    console.log(YouTube);
-
     // Unload other videos.
     loadedVideoContainerEls.forEach(unloadVideo);
 
     // Load this video.
-    /*
-    var videoUrl = imgEl.dataset.videoUrl;
-    var containerEl = imgEl.parentElement;
-    var iframeEl = document.createElement('iframe');
-    iframeEl.src = videoUrl;
-    iframeEl.frameBorder = '0';
-    hide(imgEl);
-    containerEl.appendChild(iframeEl);
-    */
     hide(imgEl);
     var div = document.createElement('div');
     div.id = 'player';

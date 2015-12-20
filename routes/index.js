@@ -38,6 +38,10 @@ function toDisplayEvents(apiEvents) {
 function withYoutubeVideos(displayEvents) {
   function withYoutubeVideo(displayEvent) {
     return new Promise(function(resolve, reject) {
+      if (!displayEvent.performance.length) {
+        resolve(displayEvent);
+        return;
+      }
       youtube.search(displayEvent.performance[0].artist.displayName)
         .then(function(result) {
           if (result) {

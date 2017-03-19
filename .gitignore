@@ -3,3 +3,4 @@ public/components
 .sass-cache
 api_keys.json
 *.swp
+.vagrant

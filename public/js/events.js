@@ -9,12 +9,13 @@ Array.prototype.without = function(item) {
 
 var loadedVideoContainerEls = [];
 
-var ytDeferred = Promise.defer();
-var ytPromise = ytDeferred.promise;
+var ytPromise = new Promise((resolve, reject) => {
+  ytResolve = resolve;
+});
 var ytPlayer;
 
 function onYouTubeIframeAPIReady() {
-  ytDeferred.resolve(YT);
+  ytResolve(YT);
 }
 
 function onPlayerReady(evt) {
